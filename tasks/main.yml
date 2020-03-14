@@ -1,0 +1,79 @@
+---
+- name: Delete working directory
+  file:
+    path: '{{ work_dir }}'
+    state: absent
+
+- name: Make working directory
+  file:
+    path: '{{ work_dir }}'
+    state: directory
+    mode: 0755
+
+- name: Install required packages
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - '@Development Tools'
+    - libyaml-devel
+    - ncurses-devel
+    - perl-CPAN
+    - perl-Curses
+
+- name: Check if perldoc perllocal is installed
+  command: perldoc perllocal
+  register: PERLDOCPERLLOCAL_INSTALLED
+  changed_when: False
+  ignore_errors: True
+
+- name: Install LWP and its missing dependencies to the '~/perl5' directory
+  command: perl -MCPAN -Mlocal::lib -e 'CPAN::install(LWP)'
+  when: PERLDOCPERLLOCAL_INSTALLED is failed
+
+- name: Check if Test::Simple is installed
+  command: perldoc perllocal
+  register: TESTSIMPLE_INSTALLED
+  changed_when: False
+  ignore_errors: True
+
+- name: Install cpan local::lib with cpan
+  command: cpan install local::lib
+  when: "'local::lib' not in TESTSIMPLE_INSTALLED.stdout"
+
+- name: Check if Term::Animation is installed
+  command: perldoc perllocal
+  register: ANIMATION_INSTALLED
+  changed_when: False
+  ignore_errors: True
+
+- name: Install cpan Term::Animation with cpan
+  command: cpan install Term::Animation
+  when: "'Term::Animation' not in ANIMATION_INSTALLED.stdout"
+
+- name: Check if asciiquarium is installed
+  command: test -e /usr/local/bin/asciiquarium
+  register: ASCIIQUARIUM_INSTALLED
+  changed_when: False
+  ignore_errors: True
+
+- name: Retrieve and unarchive asciiquarium archive file
+  unarchive:
+    src: '{{ asciiquarium_download_url }}'
+    dest: '{{ work_dir }}'
+    remote_src: yes
+    validate_certs: no
+  when: ASCIIQUARIUM_INSTALLED is failed
+
+- name: Add asciiquarium command on system
+  command: "mv {{ work_dir }}/{{ asciiquarium_dir }}/asciiquarium /usr/local/bin/"
+  when: ASCIIQUARIUM_INSTALLED is failed
+
+- name: Assign execute permission to asciiquarium command
+  file:
+    path: /usr/local/bin/asciiquarium
+    owner: root
+    group: root
+    mode: 0755
+  when: ASCIIQUARIUM_INSTALLED is failed
