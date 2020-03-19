@@ -1,7 +1,9 @@
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions)
+
 Role Name
 =========
 
-A brief description of the role goes here.
+Install [ASCIIQuarium](https://robobunny.com/projects/asciiquarium/html/) for CentOS7.
 
 Requirements
 ------------
@@ -30,6 +32,7 @@ Example Playbook
 ```YAML
 ---
 - hosts: all
+  become: true
   roles:
     - geerlingguy.repo-epel
     - asciiquarium

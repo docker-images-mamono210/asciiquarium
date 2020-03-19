@@ -1,5 +1,5 @@
 ---
-name: Ansible Playbook
+name: Build
 on: push
 
 jobs:
@@ -32,3 +32,23 @@ jobs:
 
       - name: Check idempotency
         run: ansible-playbook -i 'mycontainer,' -c docker tests/test.yml
+
+      - name: Check if asciiquarium command workds
+        run: docker exec --tty mycontainer env TERM=xterm timeout 2 asciiquarium > results.txt 2>&1
+        continue-on-error: true
+
+      - name: Show command results
+        run: |
+          wc results.txt
+          cat results.txt
+
+      - name: Check if command worked
+        run: |
+          words=$(cat results.txt | wc -w)
+          if [ $words -lt 300 ]; then exit 1; fi
+
+      - name: Show Ansible version
+        run: ansible --version
+
+      - name: Show OS information
+        run: docker exec --tty mycontainer env TERM=xterm cat /etc/redhat-release
