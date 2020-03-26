@@ -9,20 +9,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Ansible lint
-        uses: ansible/ansible-lint-action@master
-        with:
-          targets: |
-            tasks/main.yml
-
       - name: Build CentOS7 image sudo installed
         run: docker build tests/. -t centos7sudo
 
       - name: Docker run CentOS7 image sudo installed
-        run: sudo docker run -d -t --name=mycontainer centos7sudo
-
-      - name: Show Ansible version
-        run: ansible --version
+        run: docker run -d -t --name=mycontainer centos7sudo
 
       - name: Install Ansible galaxy roles
         run: ansible-galaxy install -r tests/roles/requirements.yml -p tests/roles

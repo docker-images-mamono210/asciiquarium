@@ -1,3 +1,4 @@
 ---
 - geerlingguy.repo-epel
 - src: https://github.com/ansible-roles-matsumura/asciiquarium.git
+  name: matsumura.asciiquarium

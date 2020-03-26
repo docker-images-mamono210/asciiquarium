@@ -1,6 +1,7 @@
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3ABuild)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Lint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3ALint)
 
-Role Name
+Role Description
 =========
 
 Install [ASCIIQuarium](https://robobunny.com/projects/asciiquarium/html/) for CentOS7.
@@ -13,7 +14,7 @@ EPEL installed before running this role.
 Role Variables
 --------------
 
-It is recommended that all variables should not be changed.
+It is recommended all variables not be changed.
 
 ```YAML
 asciiquarium_download_url: http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz

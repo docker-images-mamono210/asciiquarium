@@ -3,4 +3,4 @@
   become: true
   roles:
     - geerlingguy.repo-epel
-    - asciiquarium
+    - matsumura.asciiquarium
