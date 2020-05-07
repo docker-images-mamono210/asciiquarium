@@ -1,14 +1,22 @@
 ---
+- name: Check if asciiquarium is installed
+  command: test -e /usr/local/bin/asciiquarium
+  register: ASCIIQUARIUM_INSTALLED
+  changed_when: False
+  ignore_errors: True
+
 - name: Delete working directory
   file:
     path: '{{ work_dir }}'
     state: absent
+  when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Make working directory
   file:
     path: '{{ work_dir }}'
     state: directory
     mode: 0755
+  when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Install required packages
   yum:
@@ -16,11 +24,12 @@
     state: present
   vars:
     packages:
-    - '@Development Tools'
-    - libyaml-devel
-    - ncurses-devel
-    - perl-CPAN
-    - perl-Curses
+      - '@Development Tools'
+      - libyaml-devel
+      - ncurses-devel
+      - perl-CPAN
+      - perl-Curses
+  when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Check if perldoc perllocal is installed
   command: perldoc perllocal
@@ -52,12 +61,6 @@
   command: cpan install Term::Animation
   when: "'Term::Animation' not in ANIMATION_INSTALLED.stdout"
 
-- name: Check if asciiquarium is installed
-  command: test -e /usr/local/bin/asciiquarium
-  register: ASCIIQUARIUM_INSTALLED
-  changed_when: False
-  ignore_errors: True
-
 - name: Retrieve and unarchive asciiquarium archive file
   unarchive:
     src: '{{ asciiquarium_download_url }}'
@@ -67,7 +70,16 @@
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Add asciiquarium command on system
-  command: "mv {{ work_dir }}/{{ asciiquarium_dir }}/asciiquarium /usr/local/bin/"
+  copy:
+    src: "{{ work_dir }}/{{ asciiquarium_dir }}/asciiquarium"
+    dest: /usr/local/bin/asciiquarium
+    remote_src: yes
+  when: ASCIIQUARIUM_INSTALLED is failed
+
+- name: Delete downloaded files
+  file:
+    path: '{{ work_dir }}'
+    state: absent
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Assign execute permission to asciiquarium command

@@ -1,6 +1,7 @@
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Build/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3ABuild)
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Lint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3ALint)
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/Trailing%20whitespace/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3A%22Trailing+whitespace%22)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/yamllint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Ayamllint)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/ansible-playbook/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Aansible-playbook)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/ansible-lint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Aansible-lint)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/trailing%20whitespace/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3A%22trailing+whitespace%22)
 
 Role Description
 =========
@@ -18,7 +19,8 @@ Role Variables
 It is recommended all variables not be changed.
 
 ```YAML
-asciiquarium_download_url: http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz
+asciiquarium_download_url: |
+  http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz
 asciiquarium_dir: asciiquarium_1.1
 work_dir: /tmp/asciiquarium
 ```
