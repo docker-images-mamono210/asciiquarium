@@ -1,5 +1,5 @@
 ---
-- name: Check if asciiquarium is installed
+- name: Check whether asciiquarium is installed
   command: test -e /usr/local/bin/asciiquarium
   register: ASCIIQUARIUM_INSTALLED
   changed_when: False

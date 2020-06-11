@@ -1,5 +1,5 @@
 [![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/ansible-lint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Aansible-lint)
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/ansible-playbook/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Aansible-playbook)
+[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/molecule/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Amolecule)
 [![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/trailing%20whitespace/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3A%22trailing+whitespace%22)
 [![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/yamllint/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Ayamllint)
 
