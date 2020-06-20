@@ -14,7 +14,7 @@
       register: OS_VERSION
       changed_when: false
 
-    - name: Show ASCIIQuarium installed
+    - name: Make sure ASCIIQuarium is installed
       debug:
         var: ASCIIQUARIUM_INSTALLED
 
