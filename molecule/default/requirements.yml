@@ -1,2 +1,3 @@
 ---
-- robertdebock.epel
+roles:
+  - name: robertdebock.epel

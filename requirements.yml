@@ -1,8 +1,0 @@
----
-roles:
-  - name: robertdebock.epel
-  - name: asciiquarium
-    src: https://github.com/ansible-roles-matsumura/asciiquarium.git
-
-collections:
-  - name: community.general
