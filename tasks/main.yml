@@ -1,25 +1,25 @@
 ---
 - name: Check whether asciiquarium is installed
-  command: test -e /usr/local/bin/asciiquarium
+  ansible.builtin.command: test -e /usr/local/bin/asciiquarium
   register: ASCIIQUARIUM_INSTALLED
   changed_when: False
   ignore_errors: True
 
 - name: Delete working directory
-  file:
+  ansible.builtin.file:
     path: '{{ work_dir }}'
     state: absent
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Make working directory
-  file:
+  ansible.builtin.file:
     path: '{{ work_dir }}'
     state: directory
     mode: 0755
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Install required packages
-  yum:
+  ansible.builtin.yum:
     name: "{{ packages }}"
     state: present
   vars:
@@ -32,37 +32,37 @@
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Check if perldoc perllocal is installed
-  command: perldoc perllocal
+  ansible.builtin.command: perldoc perllocal
   register: PERLDOCPERLLOCAL_INSTALLED
   changed_when: False
   ignore_errors: True
 
 - name: Install LWP and its missing dependencies to the '~/perl5' directory
-  command: perl -MCPAN -Mlocal::lib -e 'CPAN::install(LWP)'
+  ansible.builtin.command: perl -MCPAN -Mlocal::lib -e 'CPAN::install(LWP)'
   when: PERLDOCPERLLOCAL_INSTALLED is failed
 
 - name: Check if Test::Simple is installed
-  command: perldoc perllocal
+  ansible.builtin.command: perldoc perllocal
   register: TESTSIMPLE_INSTALLED
   changed_when: False
   ignore_errors: True
 
 - name: Install cpan local::lib with cpan
-  command: cpan install local::lib
+  ansible.builtin.command: cpan install local::lib
   when: "'local::lib' not in TESTSIMPLE_INSTALLED.stdout"
 
 - name: Check if Term::Animation is installed
-  command: perldoc perllocal
+  ansible.builtin.command: perldoc perllocal
   register: ANIMATION_INSTALLED
   changed_when: False
   ignore_errors: True
 
 - name: Install cpan Term::Animation with cpan
-  command: cpan install Term::Animation
+  ansible.builtin.command: cpan install Term::Animation
   when: "'Term::Animation' not in ANIMATION_INSTALLED.stdout"
 
 - name: Retrieve and unarchive asciiquarium archive file
-  unarchive:
+  ansible.builtin.unarchive:
     src: '{{ asciiquarium_download_url }}'
     dest: '{{ work_dir }}'
     remote_src: yes
@@ -70,20 +70,20 @@
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Add asciiquarium command on system
-  copy:
+  ansible.builtin.copy:
     src: "{{ work_dir }}/{{ asciiquarium_dir }}/asciiquarium"
     dest: /usr/local/bin/asciiquarium
     remote_src: yes
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Delete downloaded files
-  file:
+  ansible.builtin.file:
     path: '{{ work_dir }}'
     state: absent
   when: ASCIIQUARIUM_INSTALLED is failed
 
 - name: Assign execute permission to asciiquarium command
-  file:
+  ansible.builtin.file:
     path: /usr/local/bin/asciiquarium
     owner: root
     group: root
