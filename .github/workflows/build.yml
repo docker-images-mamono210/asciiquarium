@@ -25,9 +25,7 @@ jobs:
         distro:
           - centos7
         python-version:
-          - 3.6
-          - 3.7
-          - 3.8
+          - 3.9
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r molecule/requirements.txt
 
-      - name: Test with molecule
+      - name: Test with Molecule
         env:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
