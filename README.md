@@ -1,4 +1,4 @@
-[![](https://github.com/ansible-roles-matsumura/asciiquarium/workflows/build/badge.svg)](https://github.com/ansible-roles-matsumura/asciiquarium/actions?query=workflow%3Abuild)
+[![CircleCI](https://circleci.com/gh/ansible-roles-mamono210/asciiquarium/tree/main.svg?style=svg)](https://circleci.com/gh/ansible-roles-mamono210/asciiquarium/tree/main)
 
 Role Description
 =========
