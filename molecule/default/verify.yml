@@ -5,19 +5,19 @@
   tasks:
     - name: Check whether asciiquarium is installed
       ansible.builtin.command: test -e /usr/local/bin/asciiquarium
-      register: ASCIIQUARIUM_INSTALLED
+      register: asciiquarium_installed
       changed_when: False
       ignore_errors: True
 
     - name: Check OS version
       ansible.builtin.command: cat /etc/redhat-release
-      register: OS_VERSION
+      register: os_version
       changed_when: false
 
     - name: Make sure ASCIIQuarium is installed
       ansible.builtin.debug:
-        var: ASCIIQUARIUM_INSTALLED
+        var: asciiquarium_installed
 
     - name: Show OS version
       ansible.builtin.debug:
-        var: OS_VERSION
+        var: os_version
