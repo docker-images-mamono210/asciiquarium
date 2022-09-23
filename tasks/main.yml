@@ -74,18 +74,13 @@
     src: "{{ work_dir }}/{{ asciiquarium_dir }}/asciiquarium"
     dest: /usr/local/bin/asciiquarium
     remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
   when: asciiquarium_installed is failed
 
 - name: Delete downloaded files
   ansible.builtin.file:
     path: '{{ work_dir }}'
     state: absent
-  when: asciiquarium_installed is failed
-
-- name: Assign execute permission to asciiquarium command
-  ansible.builtin.file:
-    path: /usr/local/bin/asciiquarium
-    owner: root
-    group: root
-    mode: 0755
   when: asciiquarium_installed is failed
